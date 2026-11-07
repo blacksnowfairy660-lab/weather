@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เวทมนตร์แห่งลมฟ้าอากาศ 🧚‍♀️✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Mali', cursive;
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #4a4a4a;
+        }
+
+        /* Glassmorphism Panel */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), inset 0 0 15px rgba(255,255,255,0.5);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Cute Buttons */
+        .fairy-btn {
+            background: linear-gradient(120deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            color: #d14d72;
+            font-weight: 700;
+            border-radius: 999px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.4);
+            cursor: pointer;
+        }
+        .fairy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 154, 158, 0.6);
+        }
+        .fairy-btn.active {
+            border: 2px solid #ff758c;
+            background: #fff;
+            color: #ff758c;
+        }
+
+        /* Atmosphere Tree */
+        .tree-layer {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px dashed rgba(255,255,255,0.7);
+        }
+        .tree-layer:hover {
+            transform: scale(1.02);
+            border-color: white;
+            filter: brightness(1.1);
+        }
+        .tree-layer.active {
+            border: 3px solid #ff758c;
+            box-shadow: 0 0 20px rgba(255,117,140,0.6);
+            transform: scale(1.05);
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.95) !important;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating { animation: float 3s ease-in-out infinite; }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .sparkle { animation: twinkle 1.5s infinite; }
+
+        /* Landscape Simulation */
+        .landscape-container {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: background-color 1s ease;
+            border: 4px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        @keyframes fall {
+            0% { transform: translateY(-20px); opacity: 1; }
+            100% { transform: translateY(370px); opacity: 0; }
+        }
+
+        /* Quiz Styles */
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.6);
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .quiz-option:hover { background: rgba(255, 255, 255, 0.9); }
+        .quiz-option input:checked + div { color: #d14d72; font-weight: bold; }
+        
+        .correct-ans { background: #d4edda !important; border-color: #28a745 !important; color: #155724; }
+        .wrong-ans { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Floating Background Particles -->
+    <div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+        <div class="absolute top-[10%] left-[20%] text-2xl opacity-50 floating">✨</div>
+        <div class="absolute top-[40%] left-[80%] text-xl opacity-50 floating" style="animation-delay: 1s;">🍃</div>
+        <div class="absolute top-[70%] left-[10%] text-3xl opacity-50 floating" style="animation-delay: 2s;">🌸</div>
+        <div class="absolute top-[80%] left-[70%] text-2xl opacity-50 floating" style="animation-delay: 1.5s;">✨</div>
+    </div>
+
+    <div class="max-w-6xl mx-auto glass-panel p-6 md:p-10 relative">
+        
+        <!-- Header & Nav -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#d14d72] mb-4 drop-shadow-md">
+                🧚‍♀️ เวทมนตร์แห่งลมฟ้าอากาศ ✨
+            </h1>
+            <p class="text-lg text-gray-700 font-medium">โรงเรียนเวทมนตร์วิทยาศาสตร์ ระดับชั้น ม.1</p>
+            
+            <nav class="flex flex-wrap justify-center gap-3 mt-6">
+                <button onclick="switchTab('tab-elements')" id="btn-elements" class="fairy-btn active px-6 py-2 text-lg">📖 เนื้อหาบทเรียน</button>
+                <button onclick="switchTab('tab-layers')" id="btn-layers" class="fairy-btn px-6 py-2 text-lg">🌳 ชั้นบรรยากาศ</button>
+                <button onclick="switchTab('tab-sim')" id="btn-sim" class="fairy-btn px-6 py-2 text-lg">🏞️ จำลองสภาพอากาศ</button>
+                <button onclick="switchTab('tab-quiz')" id="btn-quiz" class="fairy-btn px-6 py-2 text-lg">📝 แบบทดสอบ 10 ข้อ</button>
+            </nav>
+        </header>
+
+        <!-- ================= TAB 1: เนื้อหาบทเรียน (Weather Elements) ================= -->
+        <section id="tab-elements" class="block animate-fade-in">
+            <h2 class="text-2xl font-bold text-center text-[#ff758c] mb-6">🍄 องค์ประกอบสำคัญของลมฟ้าอากาศ 🍄</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="glass-card p-6 flex flex-col items-center text-center">
+                    <svg viewBox="0 0 100 100" class="w-24 h-24 mb-4 floating drop-shadow-[0_10px_15px_rgba(255,105,180,0.5)]">
+                        <path d="M50 15 C20 45 20 85 50 85 C80 85 80 45 50 15 Z" fill="url(#fireGrad)"/>
+                        <defs><linearGradient id="fireGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff9a9e"/><stop offset="100%" stop-color="#fecfef"/></linearGradient></defs>
+                        <ellipse cx="38" cy="60" rx="5" ry="8" fill="#4a4a4a"/><circle cx="37" cy="57" r="2" fill="#fff"/>
+                        <ellipse cx="62" cy="60" rx="5" ry="8" fill="#4a4a4a"/><circle cx="61" cy="57" r="2" fill="#fff"/>
+                        <path d="M47 70 Q50 73 53 70" stroke="#4a4a4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <ellipse cx="30" cy="65" rx="4" ry="2" fill="#ff758c" opacity="0.6"/>
+                        <ellipse cx="70" cy="65" rx="4" ry="2" fill="#ff758c" opacity="0.6"/>
+                    </svg>
+                    <h3 class="text-xl font-bold text-pink-600 mb-2">อุณหภูมิอากาศ (Temperature)</h3>
+                    <p class="text-gray-600">ระดับความร้อนหรือความเย็นของอากาศ วัดด้วย <span class="font-bold text-pink-500">เทอร์มอมิเตอร์</span> ยิ่งได้รับพลังงานจากดวงอาทิตย์มาก อากาศยิ่งร้อนขึ้น!</p>
+                </div>
+
+                <div class="glass-card p-6 flex flex-col items-center text-center">
+                    <svg viewBox="0 0 100 100" class="w-24 h-24 mb-4 floating drop-shadow-[0_10px_15px_rgba(100,200,255,0.5)]" style="animation-delay: 0.2s;">
+                        <path d="M50 25 C20 25 15 85 50 85 C85 85 80 25 50 25 Z" fill="url(#waterGrad)"/>
+                        <path d="M50 10 L45 20 L55 20 Z" fill="#6dd5ed"/>
+                        <defs><linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2193b0"/><stop offset="100%" stop-color="#6dd5ed"/></linearGradient></defs>
+                        <ellipse cx="35" cy="60" rx="6" ry="10" fill="#fff"/><ellipse cx="35" cy="60" rx="4" ry="7" fill="#000"/><circle cx="34" cy="57" r="2" fill="#fff"/>
+                        <ellipse cx="65" cy="60" rx="6" ry="10" fill="#fff"/><ellipse cx="65" cy="60" rx="4" ry="7" fill="#000"/><circle cx="64" cy="57" r="2" fill="#fff"/>
+                        <path d="M45 70 Q50 75 55 70" stroke="#000" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                    <h3 class="text-xl font-bold text-blue-600 mb-2">ความชื้นสัมพัทธ์ (Humidity)</h3>
+                    <p class="text-gray-600">ปริมาณไอน้ำที่มีอยู่ในอากาศ วัดด้วย <span class="font-bold text-blue-500">ไฮโกรมิเตอร์</span> หากความชื้นเต็มอิ่ม 100% ไอน้ำจะควบแน่นกลายเป็นหยดน้ำทันที!</p>
+                </div>
+
+                <div class="glass-card p-6 flex flex-col items-center text-center">
+                    <svg viewBox="0 0 100 100" class="w-24 h-24 mb-4 floating drop-shadow-[0_10px_15px_rgba(200,100,255,0.5)]" style="animation-delay: 0.4s;">
+                        <rect x="20" y="30" width="60" height="55" rx="15" fill="url(#pressGrad)"/>
+                        <path d="M30 10 L30 25 M25 20 L30 25 L35 20" stroke="#c471ed" stroke-width="3" fill="none" stroke-linecap="round"/>
+                        <path d="M70 10 L70 25 M65 20 L70 25 L75 20" stroke="#c471ed" stroke-width="3" fill="none" stroke-linecap="round"/>
+                        <defs><linearGradient id="pressGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f64f59"/><stop offset="100%" stop-color="#c471ed"/></linearGradient></defs>
+                        <ellipse cx="40" cy="55" rx="5" ry="8" fill="#fff"/><ellipse cx="40" cy="55" rx="3" ry="5" fill="#333"/><circle cx="39" cy="53" r="1.5" fill="#fff"/>
+                        <ellipse cx="60" cy="55" rx="5" ry="8" fill="#fff"/><ellipse cx="60" cy="55" rx="3" ry="5" fill="#333"/><circle cx="59" cy="53" r="1.5" fill="#fff"/>
+                        <path d="M45 68 Q50 70 55 68" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                    <h3 class="text-xl font-bold text-purple-600 mb-2">ความกดอากาศ (Air Pressure)</h3>
+                    <p class="text-gray-600">น้ำหนักของมวลอากาศที่กดทับพื้นโลก วัดด้วย <span class="font-bold text-purple-500">บารอมิเตอร์</span> ยิ่งขึ้นที่สูง ความกดอากาศยิ่งลดลง</p>
+                </div>
+
+                <div class="glass-card p-6 flex flex-col items-center text-center lg:col-start-1">
+                    <svg viewBox="0 0 100 100" class="w-24 h-24 mb-4 floating drop-shadow-[0_10px_15px_rgba(100,255,200,0.5)]" style="animation-delay: 0.6s;">
+                        <path d="M15 70 Q45 100 75 70 Q95 50 65 35 Q35 20 60 15" stroke="url(#windGrad)" stroke-width="14" fill="none" stroke-linecap="round"/>
+                        <defs><linearGradient id="windGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#11998e"/><stop offset="100%" stop-color="#38ef7d"/></linearGradient></defs>
+                        <circle cx="50" cy="58" r="3.5" fill="#115544"/><circle cx="68" cy="48" r="3.5" fill="#115544"/>
+                    </svg>
+                    <h3 class="text-xl font-bold text-teal-600 mb-2">ลม (Wind)</h3>
+                    <p class="text-gray-600">การเคลื่อนที่ของอากาศจากบริเวณความกดอากาศสูงไปต่ำ วัดความเร็วด้วย <span class="font-bold text-teal-500">แอนนีมอมิเตอร์</span></p>
+                </div>
+
+                <div class="glass-card p-6 flex flex-col items-center text-center lg:col-span-2">
+                    <svg viewBox="0 0 100 100" class="w-24 h-24 mb-4 floating drop-shadow-[0_10px_15px_rgba(100,100,255,0.5)]" style="animation-delay: 0.8s;">
+                        <path d="M30 60 A20 20 0 0 1 50 30 A25 25 0 0 1 80 60 A15 15 0 0 1 80 80 L30 80 A15 15 0 0 1 30 60 Z" fill="url(#cloudGrad)"/>
+                        <defs><linearGradient id="cloudGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8e9eab"/><stop offset="100%" stop-color="#eef2f3"/></linearGradient></defs>
+                        <path d="M35 85 L30 95" stroke="#6dd5ed" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M65 85 L70 95" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+                        <ellipse cx="45" cy="55" rx="4" ry="7" fill="#4a4a4a"/><ellipse cx="65" cy="55" rx="4" ry="7" fill="#4a4a4a"/>
+                    </svg>
+                    <h3 class="text-xl font-bold text-indigo-600 mb-2">หยาดน้ำฟ้า (Precipitation)</h3>
+                    <p class="text-gray-600">น้ำในบรรยากาศที่ตกลงมาสู่พื้นโลก มีทั้งของเหลว (ฝน) และของแข็ง (หิมะ ลูกเห็บ) เกิดจากการควบแน่นของไอน้ำปริมาณมหาศาล!</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: ชั้นบรรยากาศ (Atmosphere Layers) ================= -->
+        <section id="tab-layers" class="hidden">
+            <h2 class="text-2xl font-bold text-center text-[#ff758c] mb-6">🌳 ชั้นบรรยากาศของโลก (Vertical Model) 🌳</h2>
+            
+            <div class="flex flex-col md:flex-row items-center gap-8 bg-white/30 rounded-3xl p-6">
+                
+                <!-- Vertical Tree Layers -->
+                <div class="w-full md:w-1/2 flex flex-col-reverse gap-3 relative">
+                    <div class="absolute left-1/2 -ml-2 w-4 h-full bg-gradient-to-t from-green-800 to-indigo-300 rounded-full z-0 opacity-50"></div>
+                    
+                    <div onclick="showLayerInfo('troposphere')" id="layer-troposphere" class="tree-layer active bg-green-200/90 p-4 rounded-xl relative z-10 text-center font-bold text-green-900 shadow-md">
+                        ☁️ โทรโพสเฟียร์ (0 - 12 กม.)
+                    </div>
+                    
+                    <div onclick="showLayerInfo('stratosphere')" id="layer-stratosphere" class="tree-layer bg-blue-200/90 p-4 rounded-xl relative z-10 text-center font-bold text-blue-900 shadow-md">
+                        ✈️ สตราโตสเฟียร์ (12 - 50 กม.)
+                    </div>
+                    
+                    <div onclick="showLayerInfo('mesosphere')" id="layer-mesosphere" class="tree-layer bg-indigo-200/90 p-4 rounded-xl relative z-10 text-center font-bold text-indigo-900 shadow-md">
+                        🌠 มีโซสเฟียร์ (50 - 80 กม.)
+                    </div>
+                    
+                    <div onclick="showLayerInfo('thermosphere')" id="layer-thermosphere" class="tree-layer bg-purple-200/90 p-4 rounded-xl relative z-10 text-center font-bold text-purple-900 shadow-md">
+                        🌌 เทอร์โมสเฟียร์ (80 - 500 กม.)
+                    </div>
+                    
+                    <div onclick="showLayerInfo('exosphere')" id="layer-exosphere" class="tree-layer bg-pink-200/90 p-4 rounded-xl relative z-10 text-center font-bold text-pink-900 shadow-md">
+                        🛰️ เอกโซสเฟียร์ (500 กม. ขึ้นไป)
+                    </div>
+                </div>
+
+                <!-- Anime Elf Character & Dialogue -->
+                <div class="w-full md:w-1/2 flex flex-col items-center">
+                    <svg viewBox="0 0 200 200" class="w-44 h-44 floating mb-4 drop-shadow-[0_15px_20px_rgba(150,100,255,0.4)]" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M30 100 Q10 180 50 190 Q100 160 150 190 Q190 180 170 100 Z" fill="#98ff98"/>
+                        <path d="M50 100 L10 80 L50 115 Z" fill="#ffe0bd"/>
+                        <path d="M150 100 L190 80 L150 115 Z" fill="#ffe0bd"/>
+                        <path d="M60 140 L30 200 L170 200 L140 140 Z" fill="#6a0dad"/>
+                        <polygon points="100,140 115,155 100,170 85,155" fill="#ffd700"/>
+                        <ellipse cx="100" cy="100" rx="45" ry="40" fill="#ffe0bd"/>
+                        <path d="M50 90 Q80 40 110 80 Q130 50 150 90 Q130 30 100 30 Q70 30 50 90 Z" fill="#7fff00"/>
+                        <ellipse cx="75" cy="105" rx="10" ry="15" fill="#00bfff"/><circle cx="72" cy="98" r="3" fill="#ffffff"/>
+                        <ellipse cx="125" cy="105" rx="10" ry="15" fill="#00bfff"/><circle cx="122" cy="98" r="3" fill="#ffffff"/>
+                        <path d="M95 125 Q100 130 105 125" stroke="#cc7722" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <ellipse cx="60" cy="115" rx="7" ry="3" fill="#ff9999" opacity="0.6"/>
+                        <ellipse cx="140" cy="115" rx="7" ry="3" fill="#ff9999" opacity="0.6"/>
+                    </svg>
+                    
+                    <div class="glass-card p-6 w-full text-center min-h-[140px] flex flex-col justify-center">
+                        <div id="fairy-dialogue">
+                            <!-- Injected via JS -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: จำลองสภาพอากาศ (Simulation) ================= -->
+        <section id="tab-sim" class="hidden">
+            <h2 class="text-2xl font-bold text-center text-[#ff758c] mb-6">🏞️ ห้องทดลองจำลองสภาพอากาศ 🏞️</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Controls Panel -->
+                <div class="glass-card p-6 flex flex-col justify-between space-y-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-purple-700 mb-4">🎛️ แผงควบคุมเวทมนตร์</h3>
+                        
+                        <!-- Temperature Control -->
+                        <div class="mb-6">
+                            <div class="flex justify-between mb-2">
+                                <label class="font-bold text-pink-600">อุณหภูมิ (🌡️)</label>
+                                <span id="temp-display" class="font-bold text-pink-700 text-lg">25°C</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button onclick="adjustTemp(-5)" class="fairy-btn px-4 py-1 text-lg font-bold">-</button>
+                                <input type="range" id="temp-slider" min="-10" max="45" value="25" class="w-full h-3 bg-pink-200 rounded-lg appearance-none cursor-pointer accent-pink-500" oninput="syncSlider('temp')">
+                                <button onclick="adjustTemp(5)" class="fairy-btn px-4 py-1 text-lg font-bold">+</button>
+                            </div>
+                        </div>
+
+                        <!-- Humidity Control -->
+                        <div class="mb-2">
+                            <div class="flex justify-between mb-2">
+                                <label class="font-bold text-blue-600">ความชื้นสัมพัทธ์ (💧)</label>
+                                <span id="humid-display" class="font-bold text-blue-700 text-lg">50%</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button onclick="adjustHumid(-10)" class="fairy-btn px-4 py-1 text-lg font-bold">-</button>
+                                <input type="range" id="humid-slider" min="0" max="100" value="50" class="w-full h-3 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-500" oninput="syncSlider('humid')">
+                                <button onclick="adjustHumid(10)" class="fairy-btn px-4 py-1 text-lg font-bold">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/60 p-4 rounded-xl text-sm text-gray-600">
+                        💡 <b>คำแนะนำ:</b> ลองปรับอุณหภูมิต่ำและความชื้นสูงเพื่อดูหิมะตก หรือปรับอุณหภูมิสูงและความชื้นต่ำเพื่อสร้างแดดจ้า!
+                    </div>
+                </div>
+
+                <!-- Landscape Canvas / Visual Screen -->
+                <div class="lg:col-span-2 flex flex-col justify-center">
+                    <div id="landscape-container" class="landscape-container bg-sky-300">
+                        <div id="ls-sky-elements" class="absolute inset-0"></div>
+                        
+                        <!-- Background Mountains -->
+                        <div class="absolute bottom-16 w-full flex justify-between px-4 pointer-events-none opacity-70">
+                            <div class="w-40 h-40 bg-indigo-200 rounded-t-full transform -translate-x-10 translate-y-12"></div>
+                            <div class="w-56 h-56 bg-indigo-300 rounded-t-full transform translate-x-12 translate-y-20"></div>
+                        </div>
+
+                        <!-- Ground & Objects -->
+                        <div id="ls-ground" class="absolute bottom-0 w-full h-24 bg-green-400 transition-colors duration-1000 flex items-end justify-around pb-2 shadow-[inset_0_10px_20px_rgba(0,0,0,0.1)]">
+                            <div class="text-5xl drop-shadow-md">🌲</div>
+                            <div class="text-4xl mb-2 drop-shadow-md">🍄</div>
+                            <div class="text-6xl drop-shadow-md">🌳</div>
+                            <div class="text-4xl mb-1 drop-shadow-md">🏡</div>
+                            <div class="text-5xl drop-shadow-md">🌲</div>
+                        </div>
+
+                        <!-- Weather Particle Overlay -->
+                        <div id="ls-weather-effects" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+                        
+                        <!-- Status Badge -->
+                        <div id="weather-status-box" class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-6 py-2 rounded-full font-bold text-gray-800 shadow-xl z-20 border border-white text-lg">
+                            ท้องฟ้าแจ่มใส 🌤️
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= TAB 4: แบบทดสอบ (Quiz) ================= -->
+        <section id="tab-quiz" class="hidden">
+            <div class="text-center mb-6">
+                <h2 class="text-3xl font-bold text-[#ff758c] mb-2">📝 บททดสอบความรู้ 10 ข้อ 📝</h2>
+                <p class="text-gray-600">มาทดสอบความเข้าใจเรื่องลมฟ้าอากาศกันเถอะ เมื่อทำเสร็จกดส่งเพื่อตรวจคะแนนและดูเฉลยได้ทันที!</p>
+            </div>
+
+            <form id="quiz-form" onsubmit="submitQuiz(event)" class="space-y-6 max-w-4xl mx-auto">
+                <div id="quiz-container" class="space-y-6">
+                    <!-- Injected via JS -->
+                </div>
+                
+                <div class="text-center pt-6">
+                    <button type="submit" id="submit-quiz-btn" class="bg-gradient-to-r from-pink-400 to-purple-400 text-white font-bold text-xl px-10 py-4 rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-all cursor-pointer">
+                        ✨ ส่งคำตอบตรวจคะแนน ✨
+                    </button>
+                </div>
+            </form>
+        </section>
+
+    </div>
+
+    <!-- Result Modal -->
+    <div id="result-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl transform scale-0 transition-transform duration-300" id="modal-content">
+            <div class="text-6xl mb-4 floating" id="result-emoji">🧚‍♀️</div>
+            <h2 class="text-3xl font-bold text-pink-600 mb-2">ผลคะแนนของคุณ!</h2>
+            <div class="text-5xl font-extrabold text-purple-500 mb-4" id="final-score">10/10</div>
+            <p class="text-lg text-gray-700 mb-6" id="final-msg">ยอดเยี่ยมมาก!</p>
+            <button onclick="closeModal()" class="bg-pink-100 text-pink-600 font-bold px-6 py-2 rounded-full hover:bg-pink-200 transition cursor-pointer">ปิดหน้าต่าง / ดูเฉลย</button>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        // --- Tab Navigation ---
+        function switchTab(tabId) {
+            ['tab-elements', 'tab-layers', 'tab-sim', 'tab-quiz'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            ['btn-elements', 'btn-layers', 'btn-sim', 'btn-quiz'].forEach(id => {
+                document.getElementById(id).classList.remove('active');
+            });
+            
+            document.getElementById(tabId).classList.remove('hidden');
+            document.getElementById(tabId.replace('tab-', 'btn-')).classList.add('active');
+        }
+
+        // --- Atmosphere Layers Data & Logic ---
+        const layerData = {
+            'troposphere': {
+                title: "โทรโพสเฟียร์ (Troposphere)",
+                desc: "ชั้นบรรยากาศที่อยู่ใกล้พื้นดินที่สุด (0-12 กม.) เป็นชั้นที่มนุษย์อาศัยอยู่ และเป็นที่เกิดปรากฏการณ์ลมฟ้าอากาศทั้งหมด เช่น เมฆ ฝน พายุ ลม ☁️🌧️ ยิ่งสูงขึ้น อุณหภูมิยิ่งลดลงจ้า!"
+            },
+            'stratosphere': {
+                title: "สตราโตสเฟียร์ (Stratosphere)",
+                desc: "ระดับ 12-50 กม. อากาศนิ่งสงบ ไม่มีพายุ เครื่องบินพาณิชย์นิยมบินในชั้นนี้ ✈️ และมี 'ก๊าซโอโซน' หนาแน่น ช่วยดูดซับรังสีอัลตราไวโอเลต (UV) จากดวงอาทิตย์ไม่ให้เป็นอันตรายต่อเรา ☀️"
+            },
+            'mesosphere': {
+                title: "มีโซสเฟียร์ (Mesosphere)",
+                desc: "ระดับ 50-80 กม. เป็นชั้นที่มีอากาศหนาวจัดที่สุด! 🥶 ช่วยเผาไหม้อุกกาบาตจากนอกโลกให้ลุกไหม้กลายเป็น 'ดาวตก' (Meteor) ก่อนจะพุ่งชนพื้นโลก 🌠"
+            },
+            'thermosphere': {
+                title: "เทอร์โมสเฟียร์ (Thermosphere)",
+                desc: "ระดับ 80-500 กม. อุณหภูมิสูงมากจนโมเลกุลแตกตัวเป็นประจุไฟฟ้า ช่วยสะท้อนคลื่นวิทยุสื่อสาร 📻 และเป็นจุดกำเนิดของ 'แสงเหนือแสงใต้' (Aurora) แสนสวยงาม! 🌌"
+            },
+            'exosphere': {
+                title: "เอกโซสเฟียร์ (Exosphere)",
+                desc: "ชั้นนอกสุดตั้งแต่ 500 กม. ขึ้นไป ไอน้ำและอากาศเบาบางมากจนแทบเป็นสุญญากาศ เป็นวงโคจรของ 'ดาวเทียมสำรวจ' และสถานีอวกาศต่างๆ 🛰️"
+            }
+        };
+
+        function showLayerInfo(layer) {
+            document.querySelectorAll('.tree-layer').forEach(el => el.classList.remove('active'));
+            document.getElementById('layer-' + layer).classList.add('active');
+
+            const data = layerData[layer];
+            document.getElementById('fairy-dialogue').innerHTML = `
+                <h3 class="text-xl font-bold text-pink-600 mb-2">${data.title}</h3>
+                <p class="text-gray-700 leading-relaxed text-sm">${data.desc}</p>
+            `;
+        }
+        showLayerInfo('troposphere');
+
+        // --- Weather Simulation Controls & Animation ---
+        function syncSlider(type) {
+            updateSimulation();
+        }
+
+        function adjustTemp(amount) {
+            const slider = document.getElementById('temp-slider');
+            let val = parseInt(slider.value) + amount;
+            if (val < -10) val = -10;
+            if (val > 45) val = 45;
+            slider.value = val;
+            updateSimulation();
+        }
+
+        function adjustHumid(amount) {
+            const slider = document.getElementById('humid-slider');
+            let val = parseInt(slider.value) + amount;
+            if (val < 0) val = 0;
+            if (val > 100) val = 100;
+            slider.value = val;
+            updateSimulation();
+        }
+
+        function updateSimulation() {
+            const tempVal = parseInt(document.getElementById('temp-slider').value);
+            const humidVal = parseInt(document.getElementById('humid-slider').value);
+
+            document.getElementById('temp-display').innerText = tempVal + '°C';
+            document.getElementById('humid-display').innerText = humidVal + '%';
+
+            const container = document.getElementById('landscape-container');
+            const ground = document.getElementById('ls-ground');
+            const skyElems = document.getElementById('ls-sky-elements');
+            const effects = document.getElementById('ls-weather-effects');
+            const statusBox = document.getElementById('weather-status-box');
+
+            const makeParticles = (emoji, count) => {
+                let html = '';
+                for(let i=0; i<count; i++) {
+                    let left = Math.random() * 100;
+                    let dur = 1 + Math.random() * 1.5;
+                    let delay = Math.random() * 2;
+                    html += `<div class="absolute text-xl" style="left: ${left}%; top: -10%; animation: fall ${dur}s linear ${delay}s infinite;">${emoji}</div>`;
+                }
+                return html;
+            };
+
+            // Logic conditions
+            if (tempVal <= 5 && humidVal >= 60) {
+                container.className = 'landscape-container bg-blue-200';
+                ground.className = 'absolute bottom-0 w-full h-24 bg-white transition-colors duration-1000 flex items-end justify-around pb-2 shadow-[inset_0_10px_20px_rgba(0,0,0,0.05)]';
+                skyElems.innerHTML = '<div class="absolute top-4 left-10 text-6xl floating opacity-90">☁️</div><div class="absolute top-10 right-20 text-5xl floating opacity-90" style="animation-delay: 1s;">☁️</div>';
+                effects.innerHTML = makeParticles('❄️', 25);
+                statusBox.innerText = 'หิมะตก อากาศหนาวจัด ❄️';
+            } else if (tempVal > 5 && humidVal >= 75) {
+                container.className = 'landscape-container bg-gray-400';
+                ground.className = 'absolute bottom-0 w-full h-24 bg-emerald-800 transition-colors duration-1000 flex items-end justify-around pb-2 shadow-[inset_0_10px_20px_rgba(0,0,0,0.3)]';
+                skyElems.innerHTML = '<div class="absolute top-4 left-1/4 text-6xl floating opacity-80">🌧️</div><div class="absolute top-8 right-1/4 text-7xl floating opacity-80" style="animation-delay: 0.5s;">🌧️</div>';
+                effects.innerHTML = makeParticles('💧', 35);
+                statusBox.innerText = 'ฝนตกหนัก ความชื้นสูง 🌧️';
+            } else if (humidVal > 45 && humidVal < 75) {
+                container.className = 'landscape-container bg-gray-300';
+                ground.className = 'absolute bottom-0 w-full h-24 bg-emerald-600 transition-colors duration-1000 flex items-end justify-around pb-2 shadow-[inset_0_10px_20px_rgba(0,0,0,0.1)]';
+                skyElems.innerHTML = '<div class="absolute top-4 left-10 text-7xl floating opacity-90">☁️</div><div class="absolute top-12 right-10 text-6xl floating opacity-90" style="animation-delay: 1s;">☁️</div>';
+                effects.innerHTML = '';
+                statusBox.innerText = 'มีเมฆมาก ท้องฟ้ามืดครึ้ม ☁️';
+            } else if (tempVal >= 30 && humidVal <= 40) {
+                container.className = 'landscape-container bg-orange-200';
+                ground.className = 'absolute bottom-0 w-full h-24 bg-yellow-400 transition-colors duration-1000 flex items-end justify-around pb-2 shadow-[inset_0_10px_20px_rgba(0,0,0,0.1)]';
+                skyElems.innerHTML = '<div class="absolute top-4 right-10 text-8xl floating text-yellow-500 drop-shadow-[0_0_20px_rgba(255,255,0,1)]">☀️</div>';
+                effects.innerHTML = '';
+                statusBox.innerText = 'แดดจัด อากาศร้อนแล้ง ☀️';
+            } else {
+                container.className = 'landscape-container bg-sky-300';
+                ground.className = 'absolute bottom-0 w-full h-24 bg-green-400 transition-colors duration-1000 flex items-end justify-around pb-2 shadow-[inset_0_10px_20px_rgba(0,0,0,0.1)]';
+                skyElems.innerHTML = '<div class="absolute top-8 right-12 text-7xl floating drop-shadow-[0_0_15px_rgba(255,255,0,0.5)]">☀️</div><div class="absolute top-4 left-10 text-5xl floating opacity-90">☁️</div>';
+                effects.innerHTML = '';
+                statusBox.innerText = 'ท้องฟ้าแจ่มใส อากาศสบาย 🌤️';
+            }
+        }
+        window.addEventListener('DOMContentLoaded', updateSimulation);
+
+        // --- Quiz Questions & Validation ---
+        const quizQuestions = [
+            { q: "1. ลมฟ้าอากาศ (Weather) หมายถึงข้อใด?", options: ["สภาพอากาศในพื้นที่หนึ่งๆ ช่วงเวลาสั้นๆ", "สภาพอากาศเฉลี่ยในรอบ 30 ปี", "การหมุนเวียนของกระแสน้ำในมหาสมุทร", "การเปลี่ยนแปลงของแกนโลก"], a: 0 },
+            { q: "2. ปรากฏการณ์ลมฟ้าอากาศส่วนใหญ่เกิดขึ้นในชั้นบรรยากาศใด?", options: ["สตราโตสเฟียร์", "เทอร์โมสเฟียร์", "โทรโพสเฟียร์", "มีโซสเฟียร์"], a: 2 },
+            { q: "3. ก๊าซใดมีปริมาณมากที่สุดในชั้นบรรยากาศของโลก?", options: ["ออกซิเจน", "คาร์บอนไดออกไซด์", "อาร์กอน", "ไนโตรเจน"], a: 3 },
+            { q: "4. ชั้นบรรยากาศใดที่มีก๊าซโอโซนช่วยดูดซับรังสีอัลตราไวโอเลต?", options: ["สตราโตสเฟียร์", "เอกโซสเฟียร์", "มีโซสเฟียร์", "โทรโพสเฟียร์"], a: 0 },
+            { q: "5. เครื่องมือวัดความชื้นสัมพัทธ์ในอากาศเรียกว่าอะไร?", options: ["บารอมิเตอร์", "ไฮโกรมิเตอร์", "ศรลม", "แอนนีมอมิเตอร์"], a: 1 },
+            { q: "6. ลมเกิดขึ้นเนื่องจากสาเหตุหลักในข้อใด?", options: ["ความแตกต่างของอุณหภูมิและความกดอากาศ", "แรงโน้มถ่วงของดวงจันทร์", "การหมุนรอบตัวเองของดวงอาทิตย์", "ปริมาณฝนสะสมรายปี"], a: 0 },
+            { q: "7. เครื่องมือใดใช้สำหรับวัดความกดอากาศ?", options: ["แอนนีมอมิเตอร์", "ศรลม", "บารอมิเตอร์", "ไฮโกรมิเตอร์"], a: 2 },
+            { q: "8. หากอากาศอิ่มตัวด้วยไอน้ำ จะมีความชื้นสัมพัทธ์เท่ากับกี่เปอร์เซ็นต์?", options: ["0%", "50%", "75%", "100%"], a: 3 },
+            { q: "9. ชั้นบรรยากาศใดที่ช่วยเผาไหม้อุกกาบาตกลายเป็นดาวตก?", options: ["เทอร์โมสเฟียร์", "มีโซสเฟียร์", "สตราโตสเฟียร์", "โทรโพสเฟียร์"], a: 1 },
+            { q: "10. หยาดน้ำฟ้าในข้อใดที่มีสถานะเป็นของแข็งทั้งหมด?", options: ["ฝน น้ำค้าง", "หมอก น้ำค้างแข็ง", "ลูกเห็บ หิมะ", "ฝน ละอองหมอก"], a: 2 }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            let html = '';
+            quizQuestions.forEach((item, index) => {
+                html += `
+                <div class="glass-card p-6" id="q-block-${index}">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">${item.q}</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        ${item.options.map((opt, i) => `
+                            <label class="quiz-option p-4 rounded-xl flex items-center cursor-pointer">
+                                <input type="radio" name="q${index}" value="${i}" class="mr-3" required>
+                                <div class="text-gray-700 pointer-events-none">${opt}</div>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+        renderQuiz();
+
+        function submitQuiz(e) {
+            e.preventDefault();
+            const fd = new FormData(e.target);
+            let score = 0;
+
+            quizQuestions.forEach((item, index) => {
+                const ans = parseInt(fd.get(`q${index}`));
+                const block = document.getElementById(`q-block-${index}`);
+                const labels = block.querySelectorAll('.quiz-option');
+                
+                block.querySelectorAll('input').forEach(inp => inp.disabled = true);
+
+                labels.forEach((label, lIdx) => {
+                    if (lIdx === item.a) label.classList.add('correct-ans');
+                    else if (lIdx === ans && ans !== item.a) label.classList.add('wrong-ans');
+                });
+                
+                if (ans === item.a) score++;
+            });
+
+            document.getElementById('submit-quiz-btn').style.display = 'none';
+
+            document.getElementById('final-score').innerText = `${score} / 10`;
+            const msgEl = document.getElementById('final-msg');
+            const emojiEl = document.getElementById('result-emoji');
+            
+            if(score === 10) {
+                msgEl.innerText = "สุดยอดนักเวท! ตอบถูกครบหมดทุกข้อเลยจ้า! 👑✨";
+                emojiEl.innerText = "🌟";
+            } else if (score >= 7) {
+                msgEl.innerText = "เก่งมากเลย! ผ่านเกณฑ์ความรู้ลมฟ้าอากาศสบายๆ 🧚‍♀️💖";
+                emojiEl.innerText = "🧚‍♀️";
+            } else {
+                msgEl.innerText = "พยายามได้ดีมาก ลองอ่านทบทวนเนื้อหาแล้วมาแก้มือใหม่นะ! 🌱";
+                emojiEl.innerText = "📖";
+            }
+
+            const modal = document.getElementById('result-modal');
+            const content = document.getElementById('modal-content');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                content.classList.remove('scale-0');
+                content.classList.add('scale-100');
+            }, 50);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('result-modal');
+            const content = document.getElementById('modal-content');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.getElementById('tab-quiz').scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
+    </script>
+</body>
+</html>
